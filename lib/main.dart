@@ -1,17 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_best_practices/cubit/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CountingState {
-  final int count;
-
-  CountingState(this.count);
-}
-
-class CountingCubit extends Cubit<CountingState> {
-  CountingCubit() : super(CountingState(0));
-
-  void increment() => emit(CountingState(state.count + 1));
-  void decrement() => emit(CountingState(state.count - 1));
+void main() {
+  runApp(const MaterialApp(home: CountingPage()));
+  log('main');
 }
 
 class CountingPage extends StatelessWidget {
@@ -20,7 +15,7 @@ class CountingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CountingCubit(),
+      create: (_) => CounterCubit(),
       child: const CountingView(),
     );
   }
@@ -35,7 +30,7 @@ class CountingView extends StatelessWidget {
       appBar: AppBar(title: const Text('Counting')),
       // BlocBuilder is a widget that listens to state changes in the bloc
       // and rebuilds the UI with the new state
-      body: BlocBuilder<CountingCubit, CountingState>(
+      body: BlocBuilder<CounterCubit, CounterState>(
         builder: (context, state) {
           return Center(
             child: Text(
@@ -50,17 +45,15 @@ class CountingView extends StatelessWidget {
         children: [
           FloatingActionButton(
             child: const Icon(Icons.add),
-            onPressed: () => context.read<CountingCubit>().increment(),
+            onPressed: () => context.read<CounterCubit>().increment(),
           ),
           const SizedBox(height: 8),
           FloatingActionButton(
             child: const Icon(Icons.remove),
-            onPressed: () => context.read<CountingCubit>().decrement(),
+            onPressed: () => context.read<CounterCubit>().decrement(),
           ),
         ],
       ),
     );
   }
 }
-
-main() => runApp(const MaterialApp(home: CountingPage()));
