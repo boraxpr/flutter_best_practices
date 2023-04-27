@@ -1,16 +1,5 @@
 # flutter_best_practices
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+After learning about https://github.com/boraxpr/hello_flutter/ (Using ChangeNotifier to manage state), The code became so spaghetti that I decided to learn more about Cubit and BLoC<br>
+This project is a simple counter app that uses Cubit and BLoC to manage state. <br>
+The project is based on https://bloclibrary.dev/#/fluttercountertutorial?id=flutter-counter-tutorial
