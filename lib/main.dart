@@ -14,6 +14,9 @@ class CountingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // BlocProvider is a Flutter widget from the flutter_bloc package
+    // that provides a bloc to its children via BlocProvider.of<CounterCubit>(context)
+
     return BlocProvider(
       create: (_) => CounterCubit(),
       child: const CountingView(),
@@ -45,6 +48,8 @@ class CountingView extends StatelessWidget {
         children: [
           FloatingActionButton(
             child: const Icon(Icons.add),
+            // The context.read method can be used to access the bloc
+            // and call methods on it
             onPressed: () => context.read<CounterCubit>().increment(),
           ),
           const SizedBox(height: 8),
