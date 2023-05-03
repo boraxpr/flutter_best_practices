@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:html';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_best_practices/cubit/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,10 +19,36 @@ import 'cubit/lock_cubit.dart';
 // Cubits are also a great choice for use cases where you want to emit new states in response to external changes (e.g. Firebase Firestore).
 
 void main() {
-  runApp(const MaterialApp(
-    home: CountingPage(),
-  ));
+  runApp(const MyApp());
   log('main');
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BlocProvider(
+        create: (context) => CounterCubit(),
+        child: BlocBuilder<CounterCubit, CounterState>(
+          builder: (context, state) {
+            return ElevatedButton(
+              onPressed: () {
+                context.read<CounterCubit>().changeCount();
+              },
+              child: Text('${state.count}'),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
 //Stateless build once and never change
@@ -69,12 +97,12 @@ class CountingView extends StatelessWidget {
             child: const Icon(Icons.add),
             // The context.read method can be used to access the bloc
             // and call methods on it
-            onPressed: () => context.read<CounterCubit>().increment(),
+            onPressed: () => context.read<CounterCubit>().changeCount(),
           ),
           const SizedBox(height: 8),
           FloatingActionButton(
             child: const Icon(Icons.remove),
-            onPressed: () => context.read<CounterCubit>().decrement(),
+            onPressed: () => context.read<CounterCubit>().changeCount(),
           ),
         ],
       ),
