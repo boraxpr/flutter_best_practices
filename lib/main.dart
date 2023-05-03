@@ -31,6 +31,8 @@ class MyApp extends StatelessWidget {
       FloatingActionButtonLocation.endFloat,
       FloatingActionButtonLocation.startTop,
       FloatingActionButtonLocation.startFloat,
+      FloatingActionButtonLocation.centerFloat,
+      FloatingActionButtonLocation.centerTop,
     ];
     return locations[random.nextInt(locations.length)];
   }
