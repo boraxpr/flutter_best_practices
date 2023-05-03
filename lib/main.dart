@@ -43,12 +43,18 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
             return Scaffold(
+              backgroundColor: state.count % 2 == 0
+                  ? Colors.white
+                  : Colors.black.withOpacity(0.5),
               floatingActionButtonLocation:
                   randomFloatingActionButtonLocation(),
               floatingActionButton: FloatingActionButton(
                 highlightElevation: 20,
-                backgroundColor: Colors.lime,
-                splashColor: Colors.red,
+                backgroundColor: //random color
+                    Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                        .withOpacity(Random().nextDouble() * 1),
+                splashColor: Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                    .withOpacity(Random().nextDouble() * 1),
                 onPressed: () {
                   context.read<CounterCubit>().changeCount();
                 },
