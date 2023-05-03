@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_best_practices/cubit/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // Cubit
@@ -45,9 +46,8 @@ class MyApp extends StatelessWidget {
         child: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
             return Scaffold(
-              backgroundColor: state.count % 2 == 0
-                  ? Colors.white
-                  : Colors.black.withOpacity(0.5),
+              backgroundColor:
+                  state.count % 2 == 0 ? Colors.white : Colors.yellowAccent,
               floatingActionButtonLocation:
                   randomFloatingActionButtonLocation(),
               floatingActionButton: FloatingActionButton(
@@ -55,9 +55,9 @@ class MyApp extends StatelessWidget {
                 backgroundColor: //random color
                     Color((Random().nextDouble() * 0xFFFFFF).toInt())
                         .withOpacity(Random().nextDouble() * 1),
-                splashColor: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(Random().nextDouble() * 1),
+                splashColor: Color((Random().nextDouble() * 0xFFFFFF).toInt()),
                 onPressed: () {
+                  HapticFeedback.heavyImpact();
                   context.read<CounterCubit>().changeCount();
                 },
                 child: AutoSizeText(
