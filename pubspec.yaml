@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc:
-  local_auth:
   meta:
   bloc:
 

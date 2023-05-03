@@ -1,12 +1,10 @@
 import 'dart:developer';
-import 'dart:html';
+import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_best_practices/cubit/counter_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:local_auth/local_auth.dart';
-import 'cubit/lock_cubit.dart';
 // Cubit
 // A Cubit is a subset of the Bloc pattern which has no notion of events and relies on methods to emit new states.
 // Cubits are ideal for simple use cases that do not require events and/or transformations.
@@ -19,18 +17,25 @@ import 'cubit/lock_cubit.dart';
 // Cubits are also a great choice for use cases where you want to emit new states in response to external changes (e.g. Firebase Firestore).
 
 void main() {
-  runApp(const MyApp());
-  log('main');
+  runApp(
+    const MyApp(),
+  );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  //A method to random FloatingActionButtonLocation
+  FloatingActionButtonLocation randomFloatingActionButtonLocation() {
+    final random = Random.secure();
+    final locations = [
+      FloatingActionButtonLocation.endTop,
+      FloatingActionButtonLocation.endFloat,
+      FloatingActionButtonLocation.startTop,
+      FloatingActionButtonLocation.startFloat,
+    ];
+    return locations[random.nextInt(locations.length)];
+  }
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,11 +43,23 @@ class _MyAppState extends State<MyApp> {
         create: (context) => CounterCubit(),
         child: BlocBuilder<CounterCubit, CounterState>(
           builder: (context, state) {
-            return ElevatedButton(
-              onPressed: () {
-                context.read<CounterCubit>().changeCount();
-              },
-              child: Text('${state.count}'),
+            return Scaffold(
+              floatingActionButtonLocation:
+                  randomFloatingActionButtonLocation(),
+              floatingActionButton: FloatingActionButton(
+                highlightElevation: 20,
+                backgroundColor: Colors.lime,
+                splashColor: Colors.red,
+                onPressed: () {
+                  context.read<CounterCubit>().changeCount();
+                },
+                child: AutoSizeText(
+                  '${state.count}',
+                  style: const TextStyle(fontSize: 10000),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             );
           },
         ),
